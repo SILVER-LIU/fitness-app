@@ -9,15 +9,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //将css文件及代码进行极致压缩s
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+//自动清除dist 
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
     // 入口
-    entry: "./src/js/home.js",
+    entry: {
+        home:"./src/js/home.js",
+        login:"./src/js/login.js",
+        register:"./src/js/register.js"
+
+    },
     // 出口
     output: {
         // 获取根目录再拼接dist
         path: path.resolve(__dirname, "dist"),
         // 打包完成后 输出的js文件
-        filename: "js/bundle.js",
+        filename: "js/[name].js",
         publicPath: './' //打包完成之后的html文件引入其他资源的基础路径（相对路径）
     },
     // 解释器
@@ -86,14 +93,28 @@ module.exports = {
         //     配置  key:value
         // })
         new HtmlWebpackPlugin({ //配置html打包的插件
-            template: './src/home.html' //以哪个html文件作为打包的模板
+            template: './src/home.html', //以哪个html文件作为打包的模板
+            filename:'home.html',
+            chunks:['home']
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/login.html', //以哪个html文件作为打包的模板
+            filename:'login.html',
+            chunks:['login']
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/register.html', //以哪个html文件作为打包的模板
+            filename:'register.html',
+            chunks:['register']
         }),
         // 项目优化
         //提取js中的css代码
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
         }),
-        new OptimizeCssAssetsWebpackPlugin()
+        new OptimizeCssAssetsWebpackPlugin(),
+        // 自动清除dist
+        new CleanWebpackPlugin()
     ],
 
 
@@ -107,7 +128,7 @@ module.exports = {
         port: 8080, // 端口  8080 80  8081 8082
         open: true, // 自动打开服务
         publicPath: '/', // 静态资源查找路径
-        openPage: 'index.html', // 打开的页面
+        openPage: 'home.html', // 打开的页面
     },
     target: 'web', // 目标是浏览器
 
