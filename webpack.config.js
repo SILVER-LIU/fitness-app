@@ -10,13 +10,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //将css文件及代码进行极致压缩s
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 //自动清除dist 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin')
 module.exports = {
     // 入口
     entry: {
-        home:"./src/js/home.js",
-        login:"./src/js/login.js",
-        register:"./src/js/register.js"
+        home: "./src/js/home.js",
+        login: "./src/js/login.js",
+        register: "./src/js/register.js",
+        banner: "./src/js/banner.js"
 
     },
     // 出口
@@ -39,14 +42,23 @@ module.exports = {
         rules: [{
                 test: /\.css$/,
                 //use: ["style-loader", "css-loader"]
-                use: [MiniCssExtractPlugin.loader, "css-loader"]
+                //use: [MiniCssExtractPlugin.loader, "css-loader"]
+                // css兼容性处理 postcss
+                use: [{loader:MiniCssExtractPlugin.loader, options: {
+                    publicPath: '../'
+                  }}, "css-loader", 'postcss-loader'],
 
             },
             // 配置less
             {
                 test: /\.less$/,
                 //use: ["style-loader", "css-loader", "less-loader"]
-                use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
+                //use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
+                // css兼容性处理 postcss
+                use: [{loader:MiniCssExtractPlugin.loader, options: {
+                    publicPath: '../'
+                  }}, "css-loader", 'postcss-loader', "less-loader"],
+
 
 
             },
@@ -94,23 +106,28 @@ module.exports = {
         // })
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/home.html', //以哪个html文件作为打包的模板
-            filename:'home.html',
-            chunks:['home']
+            filename: 'home.html',
+            chunks: ['home','common','reset','normalize']
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/login.html', //以哪个html文件作为打包的模板
-            filename:'login.html',
-            chunks:['login']
+            filename: 'login.html',
+            chunks: ['login','common','reset','normalize']
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/register.html', //以哪个html文件作为打包的模板
-            filename:'register.html',
-            chunks:['register']
+            filename: 'register.html',
+            chunks: ['register','common','reset','normalize']
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/banner.html', //以哪个html文件作为打包的模板
+            filename: 'banner.html',
+            chunks: ['banner','common','reset','normalize']
         }),
         // 项目优化
         //提取js中的css代码
         new MiniCssExtractPlugin({
-            filename: 'css/[name].css'
+            filename: 'css/[name]-[hash:16].css'
         }),
         new OptimizeCssAssetsWebpackPlugin(),
         // 自动清除dist
@@ -128,7 +145,7 @@ module.exports = {
         port: 8080, // 端口  8080 80  8081 8082
         open: true, // 自动打开服务
         publicPath: '/', // 静态资源查找路径
-        openPage: 'home.html', // 打开的页面
+        openPage: 'banner.html', // 打开的页面
     },
     target: 'web', // 目标是浏览器
 

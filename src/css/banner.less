@@ -1,0 +1,58 @@
+header {
+    line-height: 44px;
+    width: 100%;
+}
+
+// 主体
+main {
+    flex: 1;
+    width: 100%;
+    background: #000 url("../imgs/图片@1x.png")no-repeat;
+    background-size: 100%;
+}
+
+main .skip {
+    right: 4%;
+    top: 4%;
+    width: 105px;
+    height: 40px;
+    line-height: 20px;
+    border-radius: 20px 20px 20px 20px;
+    border: 1px solid rgba(187, 187, 187, 100);
+}
+
+main .countdown {
+    margin-top: 8%;
+    width: 40%;
+    height: 62.5%;
+    border-right: 1px solid #ccc;
+}
+
+main .skipBtn {
+    width: calc(60%-1px);
+    height: 62.5%;
+}
+
+main .holdOn {
+    left: 0;
+    right: 0;
+    bottom: 30%;
+    margin: auto;
+    width: 80%;
+    transition: all;
+    animation: run 1s forwards;
+
+}
+@keyframes run {
+
+    /* 开始执行动画之前的样子 */
+    from {
+        transform: translateY(0) scale(0.1);
+    }
+
+    /* 最后一帧 */
+    to {
+        transform: translateY(100px) scale(1);
+    }
+
+  }
