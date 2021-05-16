@@ -16,6 +16,14 @@ const {
 module.exports = {
     // 入口
     entry: {
+        // 公共css
+        commonCss:"./src/js/commonCss.js",
+        // 公共js
+        http: './src/js/http.js',
+        utils:"./src/js/utils.js",
+        // 三方插件
+        captcha:"./src/lib/captcha-mini.js",
+        // 自己写的
         home: "./src/js/home.js",
         login: "./src/js/login.js",
         register: "./src/js/register.js",
@@ -107,22 +115,22 @@ module.exports = {
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/home.html', //以哪个html文件作为打包的模板
             filename: 'home.html',
-            chunks: ['home','common','reset','normalize']
+            chunks: ['home','commonCss',"http"]
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/login.html', //以哪个html文件作为打包的模板
             filename: 'login.html',
-            chunks: ['login','common','reset','normalize']
+            chunks: ['login','commonCss',"http","utils"]
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/register.html', //以哪个html文件作为打包的模板
             filename: 'register.html',
-            chunks: ['register','common','reset','normalize']
+            chunks: ['register','commonCss',"captcha","http","utils"]
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/banner.html', //以哪个html文件作为打包的模板
             filename: 'banner.html',
-            chunks: ['banner','common','reset','normalize']
+            chunks: ['banner','commonCss']
         }),
         // 项目优化
         //提取js中的css代码
@@ -131,7 +139,8 @@ module.exports = {
         }),
         new OptimizeCssAssetsWebpackPlugin(),
         // 自动清除dist
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+
     ],
 
 

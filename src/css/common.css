@@ -150,3 +150,28 @@ body {
     display: flex;
     flex-direction: column;
 }
+.toast{
+    position: fixed;
+    width: 220px;
+    height: 220px;
+    top: calc(50%-110px);
+    left: calc(50%-110px);
+    border-radius: 5px;
+    color: #FFF;
+    background: rgba(0, 0, 0, .5);
+    padding: 10px;
+}
+.toast .toastIcon{
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    font-size: 100px;
+    text-align: center;
+    margin: auto;
+}
+.toast .toastText{
+    font-size: 20px;
+    width: auto;
+    line-height: 100px;
+    text-align: center;
+}

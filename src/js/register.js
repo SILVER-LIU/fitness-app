@@ -1,18 +1,14 @@
 // 导入css
 require("../css/register.less");
-// 导入初始化样式
-require("../css/reset.css");
-// 导入公共样式
-require("../css/common.css");
-require("../css/normalize.css");
+
 /* 
  *跳转注册
  */
 // 获取dom
-let loginBtn=document.querySelector("#login");
+let loginBtn = document.querySelector("#login .font");
 // 事件监听
-loginBtn.addEventListener("click",function(event){
-    window.location.href="http://localhost:8080/login.html"
+loginBtn.addEventListener("click", function (event) {
+    window.location.href = "http://localhost:8080/login.html"
 });
 
 
@@ -25,68 +21,98 @@ let pwdIput = document.querySelector("#pwd");
 let rePwdIput = document.querySelector("#rePwd");
 let verificationIput = document.querySelector("#verification");
 let subBtn = document.querySelector(".subBtn");
-let telState = false;
-let pwdState = false;
-let rePwdState = false;
-// 事件监听
-// 电话事件监听
-telIput.addEventListener("blur", function () {
-    // 定义正则
-    let reg = /^1[3|4|5|6|7|8|9][0-9]{9}$/;
-    // 获取用户输入值
-    if (!(reg.test(telIput.value))) {
-        document.querySelector("#tel+p").style.opacity = "1";
-        this.style.border = "1px solid #F55";
-        this.style.background = "rgba(255, 255, 255, .5)";
-        telState = false;
-    } else {
-        document.querySelector("#tel+p").style.opacity = "0";
-        this.style.border = "1px solid #000";
-        telState = true;
-    };
-    // 调用判断是否输入完全函数
-    checkform();
+let body = document.querySelector("body");
+let form=document.querySelector("#form");
+///验证码
+let yzmStr = "";
+let captcha1 = new CaptchaMini({
+    lineNum: 6,
 });
-// 密码事件监听
-pwdIput.addEventListener("blur", function () {
-    // 定义正则
-    let reg = /^[a-zA-Z0-9_-]{4,16}$/;
-    // 获取用户输入值
-    if (!(reg.test(pwdIput.value))) {
-        document.querySelector("#pwd+p").style.opacity = "1";
-        this.style.border = "1px solid #F55";
-        pwdState = false;
-    } else {
-        document.querySelector("#pwd+p").style.opacity = "0";
-        this.style.border = "1px solid #000";
-        pwdState = true;
-    };
-    // 调用判断是否输入完全函数
-    checkform();
+captcha1.draw(document.querySelector('#captcha'), function (res) {
+    yzmStr = res.toLowerCase();
+    return yzmStr;
 });
-// 再次密码事件监听
-rePwdIput.addEventListener("blur", function () {
-    // 判定是否与第一次相等
-    if (rePwdIput.value === pwdIput.value) {
-        document.querySelector("#rePwd+p").style.opacity = "0";
-        this.style.border = "1px solid #000";
-        rePwdState = true;
-    } else {
-        document.querySelector("#rePwd+p").style.opacity = "1";
-        this.style.border = "1px solid #F55";
-        rePwdState = false;
+// 点击一个input时触发计时器判断是否输入完全提交按钮并变颜色
+form.addEventListener("click", function (event) {
+    if(event.target.nodeName==="INPUT"){
+        let timeId = setInterval(function () {
+            if (telIput.value && pwdIput.value && rePwdIput.value && verificationIput.value) {
+                subBtn.style.background = "rgba(99, 255, 167, 1)";
+                subBtn.disabled=false;
+                // 清除定时器
+                clearInterval(timeId);
+            } else {
+                subBtn.style.background = "rgba(99, 255, 167, .5)";
+                subBtn.disabled=true;
+                
+            };
+        }, 500)
+    }
+   
+});
 
-    };
-    // 调用判断是否输入完全函数
-    checkform();
-});
- // 封装一个函数判断是否输入完全
- function checkform() {
-    if (pwdState && rePwdState && telState) {
-        // subBtn.disabled = true;
-        subBtn.style.background = "rgba(99, 255, 167, 1)";
+// 注册验证
+subBtn.addEventListener("click", function () {
+    if (!(utils.testTel(telIput.value))) {
+        utils.toast("icon-icon1", '请输入正确的手机号');
+        telIput.style.border = "1px solid #F55";
+        return;
     } else {
-        // subBtn.disabled = false;
-        subBtn.style.background = "rgba(99, 255, 167, .5)";
+        telIput.style.border = "1px solid #000";
     };
-};
+    // 判断验证码
+    if (verificationIput.value.toLowerCase() != yzmStr) {
+        utils.toast("icon-icon1", '验证码输入错误');
+        verificationIput.style.border = "1px solid #F55";
+        return;
+    } else {
+        verificationIput.style.border = "1px solid #000";
+    };
+
+    if (!(utils.testPwd(pwdIput.value))) {
+        utils.toast("icon-icon1", '密码格式不对');
+        pwdIput.style.border = "1px solid #F55";
+        return;
+    } else {
+        pwdIput.style.border = "1px solid #000";
+    };
+    if (rePwdIput.value !== pwdIput.value) {
+        utils.toast("icon-icon1", '两次密码输入不一致');
+        rePwdIput.style.border = "1px solid #F55";
+        pwdIput.style.border = "1px solid #F55";
+        return;
+    } else {
+        rePwdIput.style.border = "1px solid #000";
+    };
+    // 接口
+    let data = {
+        account: telIput.value,
+        password: pwdIput.value
+    }
+    $http.post("/users/add", data, function (rel) {
+        // 判定
+        if (rel.status == 0 && rel.msg === "OK") {
+            // 注册成功
+            utils.toast("icon-duigou", '注册成功');
+            setTimeout(function () {
+                window.location.href="../login.html"
+            }, 2000);
+        }else if(rel.msg === "用户已存在"){
+            // 注册失败用户已存在
+            utils.toast("icon-icon1", '用户已存在');
+        };
+
+    });
+
+});
+// 事件委派关闭模态框
+body.addEventListener("click", function (event) {
+    // 判定
+    if (event.target.className === "toastText") {
+        event.target.parentNode.parentNode.parentNode.remove();
+    } else if (event.target.className === "iconfont icon-icon1 toastIcon") {
+        event.target.parentNode.remove();
+    } else if (event.target.className === "toast") {
+        event.target.remove();
+    }
+});
