@@ -10,11 +10,61 @@
 
 <body>
     <!-- 头部 -->
-    <header></header>
+    <header>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="./imgs/1.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./imgs/2.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./imgs/3.jpg" alt="">
+                </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </header>
     <!-- 主体 -->
-    <main></main>
-    <!-- 底部 -->
-    <footer></footer>
+    <main>
+        <!-- 排名和打卡 -->
+        <div class="listItem dpflex">
+            <!-- 排名 -->
+            <div class="greade mr20 br15 rel">
+                <i class="iconfont icon-paiming abs zi1"></i>
+                <p class="f20 fw zi5 abs">今日排名</p>
+                <p class="f48 taright cf abs fw greadeText"></p>
+            </div>
+            <div class="openCard br15 rel">
+                <i class="iconfont icon-daka abs"></i>
+                <p class="f20 fw abs zi5">累积打卡<span class="punchIn"></span>天</p>
+                <div class="todayOpenBtn f16 fw tacenter abs zi5">今日打卡</div>
+            </div>
+        </div>
+        <!-- 运动数据和徽章 -->
+        <div class="listItem dpflex">
+            <div class="MovementData mr20 br15">
+                <p class="f16 fw cf zi5">运动数据</p>
+            </div>
+            <div class="badge br15 rel">
+                <i class="iconfont icon-jiangpaipaiming abs"></i>
+                <p class="f16 fw abs zi5">累积运动徽章</p>
+                <p class="taright cf fw badgeText abs zi5"><span class="f80 insigniaNum"></span>枚</p>
+            
+            </div>
+        </div>
+        <!-- 课程训练 -->
+        <div class="listItem TrainingCourse br15">
+            <p class="f16 fw cf">课程训练</p>
+        </div>
+        <!-- 户外跑步 -->
+        <div class="listItem OutdoorRunning br15">
+            <p class="f16 fw cf">户外跑步</p>
+        </div>
+    </main>
+    
 </body>
 
 </html>

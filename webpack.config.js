@@ -21,14 +21,17 @@ module.exports = {
         // 公共js
         http: './src/js/http.js',
         utils:"./src/js/utils.js",
+        dom:"./src/js/dom.js",
         // 三方插件
         captcha:"./src/lib/captcha-mini.js",
+        swiper:"./src/lib/swiper/swiper-bundle.js",
         // 自己写的
         home: "./src/js/home.js",
         login: "./src/js/login.js",
         register: "./src/js/register.js",
-        banner: "./src/js/banner.js"
-
+        banner: "./src/js/banner.js",
+        sports: "./src/js/sports.js",
+        about:"./src/js/about.js",
     },
     // 出口
     output: {
@@ -115,22 +118,32 @@ module.exports = {
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/home.html', //以哪个html文件作为打包的模板
             filename: 'home.html',
-            chunks: ['home','commonCss',"http"]
+            chunks: ['home','commonCss',"http","swiper","utils","dom"]
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/login.html', //以哪个html文件作为打包的模板
             filename: 'login.html',
-            chunks: ['login','commonCss',"http","utils"]
+            chunks: ['login','commonCss',"http","utils","dom"]
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/register.html', //以哪个html文件作为打包的模板
             filename: 'register.html',
-            chunks: ['register','commonCss',"captcha","http","utils"]
+            chunks: ['register','commonCss',"captcha","http","utils","dom"]
         }),
         new HtmlWebpackPlugin({ //配置html打包的插件
             template: './src/banner.html', //以哪个html文件作为打包的模板
             filename: 'banner.html',
-            chunks: ['banner','commonCss']
+            chunks: ['banner','commonCss',"dom"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/sports.html', //以哪个html文件作为打包的模板
+            filename: 'sports.html',
+            chunks: ['sports','commonCss',"utils","http","dom"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/about.html', //以哪个html文件作为打包的模板
+            filename: 'about.html',
+            chunks: ['about','commonCss',"utils","http","dom"]
         }),
         // 项目优化
         //提取js中的css代码

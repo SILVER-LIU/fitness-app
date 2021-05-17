@@ -1,6 +1,133 @@
-body {
+// body {
+//     width: 100%;
+//     height: 100%;
+//     background: url("../imgs/2.jpg");
+//     background-size: cover;
+// }
+// 轮播图
+.swiper-container {
     width: 100%;
-    height: 100%;
-    background: url("../imgs/2.jpg");
-    background-size: cover;
+    height: 200px;
+
+    img {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+// 主体
+main {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 92px;
+
+}
+
+// 排名和打卡
+main .listItem {
+    margin-top: 20px;
+    width: auto;
+    overflow: hidden;
+
+    // 打卡
+    .greade {
+        flex: 4;
+        color: #004E73;
+        height: 150px;
+        padding: 14px;
+        background: #1592CC;
+
+        i {
+            font-size: 121px;
+            left: -10px;
+            bottom: 0px;
+            opacity: 0.3;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .greadeText {
+            bottom: 14px;
+            right: 14px;
+        }
+    }
+
+    .openCard {
+        flex: 5;
+        height: 150px;
+        padding: 14px;
+        background: #7BCBF5;
+
+        i {
+            font-size: 110px;
+            left: 14px;
+            bottom: 0px;
+            opacity: 0.5;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .todayOpenBtn {
+            width: 96px;
+            height: 36px;
+            line-height: 36px;
+            border: 2px solid #004E73;
+            border-radius: 20px;
+            color: #004E73 !important;
+            ;
+
+            bottom: 25px;
+            right: 15px;
+
+        }
+    }
+}
+
+// 运动数据和徽章
+main .MovementData {
+    flex: 5;
+    height: 110px;
+    padding: 12px 14px;
+    background: url("../imgs/index-card-data.png") no-repeat;
+    background-size: 110%;
+}
+
+main .badge {
+    flex: 5;
+    height: 110px;
+    padding: 12px 14px;
+    background: rgb(143, 190, 235);
+
+    i {
+        font-size: 100px;
+        left: 0px;
+        bottom: 0px;
+        opacity: 0.5;
+        color: #fff;
+        z-index: 1;
+    }
+
+    .badgeText {
+        color: #004E73;
+        bottom: 5px;
+        right: 14px;
+    }
+}
+
+// 课程训练
+main .TrainingCourse {
+    height: 110px;
+    width: auto;
+    padding: 12px 14px;
+    background: url("../imgs/index-swiper-bg2.jpg");
+    background-size: 100%;
+}
+
+// 户外跑步
+main .OutdoorRunning {
+    height: 110px;
+    width: auto;
+    padding: 12px 14px;
+    background: url("../imgs/index-card-run.png");
+    background-size: 100%;
 }
