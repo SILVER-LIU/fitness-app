@@ -1,0 +1,134 @@
+@import url("../fonts/iconfont.css");
+
+header {
+    .arrows {
+        top: 20px;
+        left: 20px;
+        width: 12px;
+        height: 12px;
+
+        transform: rotateZ(135deg);
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+    }
+
+    .playIcon {
+        width: 80px;
+        top: 50%;
+        left: calc(50%-40px);
+
+        i {
+            padding: 0 20px;
+            font-size: 40px;
+            color: #fff;
+        }
+    }
+}
+
+header .imgBox {
+    width: 100%;
+    height: 370px;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+main {
+    padding: 0 25px;
+}
+
+// 标题
+main .title {
+    border-bottom: 1px solid #000;
+}
+
+main .practiced {
+    padding-right: 15px;
+    margin-bottom: 15px;
+    width: 50%;
+
+    .arrows {
+        right: 0;
+        top: 0;
+
+        width: 10px;
+        height: 10px;
+
+        transform: rotateZ(-45deg);
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+// 用户名
+main .headPortrait {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    overflow: hidden;
+
+    .Portrait {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+main .user {
+    padding: 20px 15px;
+}
+
+main .attention {
+    width: 80px;
+    height: 35px;
+    border-radius: 23px;
+    line-height: 35px;
+    background-color: rgba(66, 148, 255, 100);
+    color: rgba(249, 249, 249, 100);
+    border: 1px solid rgba(255, 255, 255, 100);
+    margin: auto 0;
+}
+
+// 简介
+main .synopsis {
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .more {
+        bottom: 0;
+        right: 0;
+    }
+}
+
+// 练习次数
+main .practice {
+    border-right: 1PX dotted #000;
+
+    i {
+        font-size: 30px;
+    }
+}
+
+main .instrument {
+    padding-left: 20px;
+    i {
+        font-size: 30px;
+    }
+}
+main .practiceTitle{
+    line-height: 22px;
+}
+// 开始训练
+main .startBtn {
+    width: 100;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 27px;
+    background-color: rgba(66, 148, 255, 100);
+    color: rgba(255, 255, 255, 100);
+    border: 1px solid rgba(255, 255, 255, 100);
+}

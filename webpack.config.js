@@ -25,6 +25,7 @@ module.exports = {
         // 三方插件
         captcha:"./src/lib/captcha-mini.js",
         swiper:"./src/lib/swiper/swiper-bundle.js",
+        weui:"./src/lib/weui/weui.js",
         // 自己写的
         home: "./src/js/home.js",
         login: "./src/js/login.js",
@@ -32,6 +33,10 @@ module.exports = {
         banner: "./src/js/banner.js",
         sports: "./src/js/sports.js",
         about:"./src/js/about.js",
+        edit:"./src/js/edit.js",
+        course:"./src/js/course.js",
+        sportsDetail:"./src/js/sportsDetail.js",
+        player:"./src/js/player.js",
     },
     // 出口
     output: {
@@ -144,6 +149,26 @@ module.exports = {
             template: './src/about.html', //以哪个html文件作为打包的模板
             filename: 'about.html',
             chunks: ['about','commonCss',"utils","http","dom"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/edit.html', //以哪个html文件作为打包的模板
+            filename: 'edit.html',
+            chunks: ['edit','commonCss',"http","dom","weui","utils"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/course.html', //以哪个html文件作为打包的模板
+            filename: 'course.html',
+            chunks: ['course','commonCss',"http","dom","utils"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/sportsDetail.html', //以哪个html文件作为打包的模板
+            filename: 'sportsDetail.html',
+            chunks: ['sportsDetail','commonCss',"http","dom","utils"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/player.html', //以哪个html文件作为打包的模板
+            filename: 'player.html',
+            chunks: ['player','commonCss',"http","dom","utils"]
         }),
         // 项目优化
         //提取js中的css代码

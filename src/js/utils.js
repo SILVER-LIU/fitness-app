@@ -61,7 +61,35 @@ const utils = {
         footer.innerHTML = html;
         document.querySelector("body").appendChild(footer);
     },
-
+    dateFormat:function (date) {
+        // 获取年月日 时分秒
+        let y = date.getFullYear(); // 4位数年份
+        let m = date.getMonth() + 1; //获取月份
+        let d = date.getDate(); //获取日期
+        let h = date.getHours(); //获取小时
+        let min = date.getMinutes(); //获取分钟
+        let s = date.getSeconds(); //获取秒
+        //添0补齐
+        m = m < 10 ? '0' + m : m;
+        d = d < 10 ? '0' + d : d;
+        h = h < 10 ? '0' + h : h;
+        min = min < 10 ? '0' + min : min;
+        s = s < 10 ? '0' + s : s;
+        return `${y}-${m}-${d}`;
+      },
+        stringToObj:function(str) {
+        str = str.substr(1);
+        //id=5&name=张三
+        let arr = str.split('&');
+        // ["id=5", "name=zhangsan"]
+        //返回的对象
+        let obj = {};
+        arr.forEach(function(item) {
+            let arr1 = item.split('=');
+            obj[arr1[0]] = arr1[1]
+        })
+        return obj;
+    },
 };
 // 挂载
 window.utils = utils;

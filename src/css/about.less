@@ -7,14 +7,30 @@ header {
         margin-right: 15px;
         border-radius: 50%;
         border: 3px solid #4294FF;
+        overflow: hidden;
+        img{
+            width: 114px;
+        }
     }
 
     .userName {
         flex: 1;
         line-height: 120px;
     }
+    .vipIcon{
+        left: 110px;
+        top: 110px;
+        width: 45px;
+        height: 22px;
+        line-height: 20px;
+        background: url("../imgs/vipicon.png") no-repeat;
+        background-size: 100%;
+    }
 }
-
+// 上传头像
+#fileBtn{
+    display: none;
+}
 // 主体
 main {
     background: #E8E8E8;
