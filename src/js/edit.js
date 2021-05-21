@@ -14,19 +14,36 @@ document.ready(function () {
     let saveBtn = document.querySelector('.saveBtn');
     let sign = document.querySelector("#sign");
     let user = JSON.parse(localStorage.getItem("user"));
+    let pid = "";
 
+    let data = {
+        nickname: user.nickname,
+        gender: "男",
+        birthday: user.birthday,
+        province: "",
+        city: "",
 
+    }
     // 渲染
-    console.log(user);
+    // 城市数组（用于渲染）
     let addressArr = [];
+    // 判断是否渲染（判断是否第一次修改）
     if (user.address) {
-        addressArr = user.address.split(',');
+        // 判断城市数据的数据类型（字符串和数组两种）
+        if (typeof user.address === "string") {
+            addressArr = user.address.split(',');
+        } else {
+            addressArr = user.address;
+        }
         sexVal.textContent = user.gender;
         birthdayVal.textContent = utils.dateFormat(new Date(user.birthday));
         provinceVal.textContent = addressArr[0];
         cityVal.textContent = addressArr[1];
         sign.textContent = user.sign;
         userName.value = user.nickname;
+        data.province = addressArr[0];
+        data.city = addressArr[1];
+        pid = localStorage.getItem("pid");
     };
 
 
@@ -38,14 +55,7 @@ document.ready(function () {
     arrowsBtn.addEventListener("click", function (ev) {
         window.location.href = "../about.html";
     });
-    let data = {
-        nickname: "",
-        gender: "男",
-        birthday: user.birthday,
-        province: "",
-        city: ""
 
-    }
 
     // 性别
     sexDom.addEventListener("click", function (ev) {
@@ -82,12 +92,11 @@ document.ready(function () {
             title: '修改日期'
         });
     });
-    // 城市
-    let pid = "";
+    // 省份
     provinceDom.addEventListener("click", function (ev) {
         // 请求接口
         $http.get("/address/province", function (res) {
-            // 修改
+            // 集合成数组
             let provinceData = res.data.map(function (item) {
                 return {
                     label: item.name,
@@ -104,6 +113,7 @@ document.ready(function () {
                     data.province = result[0].label;
                     // 修改pid
                     pid = result[0].value;
+                    data.pid = result[0].value;
                     // 渲染市
                     $http.get("/address/city/" + pid, function (res) {
                         console.log(res);
@@ -116,14 +126,14 @@ document.ready(function () {
 
         });
     });
-    // 
+    // 城市
     cityDom.addEventListener("click", function (ev) {
-        if(data.province===""){
+        if (data.province === "") {
             utils.toast("icon-icon1", "请先选择省份");
             return;
         }
         $http.get("/address/city/" + pid, function (res) {
-            // 
+            // 集合成数组
             let cityData = res.data.map(function (item) {
                 return {
                     label: item.name,
@@ -144,11 +154,8 @@ document.ready(function () {
         })
     });
     // 提交按钮
-
-    //保存数据
-
-    console.log(userName.value);
     saveBtn.addEventListener('click', function (ev) {
+        //保存数据
         let saveData = {
             userId: user.userId,
             nickname: userName.value,
@@ -157,20 +164,28 @@ document.ready(function () {
             address: [data.province, data.city],
             sign: sign.value
         }
-        localStorage.setItem("user", JSON.stringify(saveData));
-        console.log(saveData);
+        // 保存数据至本地
+
+
+        if (saveData.nickname === user.nickname && saveData.gender === user.gender && saveData.birthday === (new Date(user.birthday).getTime()) && saveData.address[0] === addressArr[0] && saveData.address[1] === addressArr[1] && saveData.sign === user.sign) {
+            utils.toast("icon-icon1", "未改变任何数据");
+            return;
+        }
+        // 判断用户名是否为空
         if (saveData.nickname === "") {
             utils.toast("icon-icon1", "用户名不能为空");
             return;
         }
+        // 判断城市省份是否选择
         if (saveData.address[0] === "") {
             utils.toast("icon-icon1", "请选择城市和省份");
             return;
         }
-
+        localStorage.setItem("user", JSON.stringify(saveData));
+        localStorage.setItem("pid", pid);
+        // 请求数据上传
         $http.post("/users/userEdit", saveData, function (res) {
             utils.toast("icon-duigou", '修改成功');
-            console.log(res);
         });;
     });
 

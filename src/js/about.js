@@ -13,6 +13,7 @@ document.ready(function () {
     let calorieDom = document.querySelector(".calorie");
     let headPortraitDom = document.querySelector(".headPortrait");
     let fileBtn = document.querySelector("#fileBtn");
+    let sportsDataBtn=document.querySelector(".sportsData");
     // 数据接口
     let BASE_URL = 'http://139.9.177.51:8099';
 
@@ -42,10 +43,11 @@ document.ready(function () {
             };
             // 个性签名
             if (user.sign) {
-                signatureDom = user.sign;
+                signatureDom.textContent = user.sign;
             };
             // 用户名
             userNameDom.textContent = user.nickname;
+
         });
 
     };
@@ -113,7 +115,10 @@ document.ready(function () {
         });
     });
 
-
+    // 6.进入我的数据
+    sportsDataBtn.addEventListener("click",function(ev){
+        window.location.href="../sportsData.html";
+    });
     // 退出登录
     // 获取dom
     let logoutBtn = document.querySelector(".logout");

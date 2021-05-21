@@ -37,6 +37,7 @@ module.exports = {
         course:"./src/js/course.js",
         sportsDetail:"./src/js/sportsDetail.js",
         player:"./src/js/player.js",
+        sportsData:"./src/js/sportsData.js"
     },
     // 出口
     output: {
@@ -169,6 +170,11 @@ module.exports = {
             template: './src/player.html', //以哪个html文件作为打包的模板
             filename: 'player.html',
             chunks: ['player','commonCss',"http","dom","utils"]
+        }),
+        new HtmlWebpackPlugin({ //配置html打包的插件
+            template: './src/sportsData.html', //以哪个html文件作为打包的模板
+            filename: 'sportsData.html',
+            chunks: ['sportsData','commonCss',"http","dom","utils"]
         }),
         // 项目优化
         //提取js中的css代码

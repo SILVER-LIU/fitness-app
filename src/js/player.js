@@ -10,6 +10,12 @@ document.ready(function () {
     let nextBtn = document.querySelector('#next');
     let progressDom = document.querySelector('.progress');
     let arrowsBtn= document.querySelector('.arrows');
+    let ObscurationDom=document.querySelector(".Obscuration");
+    let playBtn=document.querySelector("#play");
+    let stopBtn=document.querySelector("#stop");
+    let messageImgDOm=document.querySelector("#messageImg");
+    let messageTextDom=document.querySelector(".messageText");
+
     // 接口地址
     let baseUrl = ' http://139.9.177.51:8099';
     // 获取视频地址
@@ -29,7 +35,6 @@ document.ready(function () {
     };
     // 调用渲染
     play();
-
 
     //视频结束时播放下一个
     videoPlayerDom.addEventListener('ended', function (ev) {
@@ -71,15 +76,28 @@ document.ready(function () {
             this.classList.remove("icon-zanting");
             // 添加类名
             this.classList.add("icon-kaishi");
-        } else if (this.className.indexOf('icon-kaishi') > -1) {
-            // 开始
-            videoPlayerDom.play();
-            // 删除类名
-            this.classList.remove("icon-kaishi");
-            // 添加类名
-            this.classList.add("icon-zanting");
-        }
+            // 打开蒙层
+            ObscurationDom.style.display="block";
+            // 渲染
+            messageImgDOm.src=baseUrl+videoList[videoIndex].imgUrl;
+            messageTextDom.textContent=videoList[videoIndex].title
+        };
 
+    });
+    // 开始播放
+    playBtn.addEventListener("click",function(ev){
+        // 开始播放
+        videoPlayerDom.play();
+        // 关闭蒙层
+        ObscurationDom.style.display="none";
+         // 删除类名
+         pauseBtn.classList.remove("icon-kaishi");
+         // 添加类名
+         pauseBtn.classList.add("icon-zanting");
+    });
+    // 停止播放
+    stopBtn.addEventListener("click",function(ev){
+        history.back();
     });
     // 进度条
     setInterval(function () {

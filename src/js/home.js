@@ -27,14 +27,15 @@ document.ready(function () {
     let insigniaNum = document.querySelector(".insigniaNum");
     let punchIn = document.querySelector(".punchIn");
     let todayOpenBtn = document.querySelector(".todayOpenBtn");
+    let TrainingCourseDom=document.querySelector(".TrainingCourse");
+    let MovementDataDom=document.querySelector(".MovementData");
+    let badgeDom=document.querySelector(".badge");
 
     // 获取用户数据
     let user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
     // 渲染
     function homeData() {
         $http.get("/headPageInfo?userId=" + user.userId, function (res) {
-            console.log(res);
             // 判断是否成功请求
             if (res.status === 0) {
                 rank.textContent = res.data.rank;
@@ -52,6 +53,14 @@ document.ready(function () {
         });
     };
     homeData();
+    // 跳转至运动数据
+    TrainingCourseDom.addEventListener("click",function(ev){
+        location.href="../sportsDetail.html";
+    });
+    //  跳转至课程训练
+    MovementDataDom.addEventListener("click",function(ev){
+        location.href="../sportsData.html";
+    });
     // 打卡
     todayOpenBtn.addEventListener("click", function (ev) {
         $http.get('/clockIn?userId=' + user.userId, function (res) {

@@ -41,5 +41,7 @@
       ">0.1%"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "echarts": "^5.1.1"
+  }
 }

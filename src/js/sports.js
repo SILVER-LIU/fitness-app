@@ -10,7 +10,6 @@ document.ready(function () {
     let newTextDom = document.querySelector('.newText');
     let courseListDom = document.querySelector('#courseList');
     let newItemDom = document.querySelector('#newCourse');
-    console.log(newItemDom);
     let baseUrl = ' http://139.9.177.51:8099';
     let user = JSON.parse(localStorage.getItem("user"));
 
@@ -19,6 +18,7 @@ document.ready(function () {
         //处理数据渲染页面
         let dataArr = res.data;
         //获取最新课程
+        console.log(dataArr);
         let newData = dataArr.find(function(item) {
                 return item.latest === 1
             });
@@ -31,7 +31,7 @@ document.ready(function () {
                     <h3 class="newTitle c0">
                          ${newData.name}
                     </h3>
-                    <p class="newText mt8 f14 cc">
+                    <p class="newText mt8 f14 c8a">
                          ${newData.desc}
                      </div>
                  </div>
@@ -40,8 +40,6 @@ document.ready(function () {
      newItemDom.innerHTML = newhtml;
 
      //渲染 课程列表
-
-     console.log(dataArr);
 
      let html = '';
      dataArr.forEach(function(item) {
